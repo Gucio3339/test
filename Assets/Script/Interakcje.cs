@@ -5,7 +5,7 @@ using UnityEngine;
 public class Interakcje : MonoBehaviour
 {
     public Transform player;
-
+    public GameObject[] Pickable_Items;
     public float pickUpRange;
     public float dropForwardForce, dropUpwardForce;
 
@@ -15,7 +15,9 @@ public class Interakcje : MonoBehaviour
     private void Start()
     {
 
-            slotFull = true;
+        slotFull = false;
+         Pickable_Items =GameObject.FindGameObjectsWithTag("Interactable") ;
+
 
     }
 
@@ -34,9 +36,16 @@ public class Interakcje : MonoBehaviour
         equipped = true;
         slotFull = true;
 
-       // transform.localPosition = Vector3.zero;
-       // transform.localRotation = Quaternion.Euler(Vector3.zero);
-       // transform.localScale = Vector3.one;
+        for (int i = 0; i <Pickable_Items.Length; i++)
+        { float dist = Vector3.Distance(Pickable_Items[i].transform.position, transform.position);
+            Debug.Log("objekt " + Pickable_Items[i].name + "distance: " + dist);
+           
+
+        }
+
+        // transform.localPosition = Vector3.zero;
+        // transform.localRotation = Quaternion.Euler(Vector3.zero);
+        // transform.localScale = Vector3.one;
 
 
 
