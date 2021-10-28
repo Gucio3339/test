@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Interakcje : MonoBehaviour
 {
-    public ProjectileGun gunScript;
-    public Rigidbody rb;
-    public BoxCollider coll;
-    public Transform player, gunContainer, fpsCam;
+    public Transform player;
 
     public float pickUpRange;
     public float dropForwardForce, dropUpwardForce;
@@ -18,19 +15,8 @@ public class Interakcje : MonoBehaviour
     private void Start()
     {
 
-        if (!equipped)
-        {
-            gunScript.enabled = false;
-            rb.isKinematic = false;
-            coll.isTrigger = false;
-        }
-        if (equipped)
-        {
-            gunScript.enabled = true;
-            rb.isKinematic = true;
-            coll.isTrigger = true;
             slotFull = true;
-        }
+
     }
 
     private void Update()
@@ -48,18 +34,12 @@ public class Interakcje : MonoBehaviour
         equipped = true;
         slotFull = true;
 
-
-        transform.SetParent(gunContainer);
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.Euler(Vector3.zero);
-        transform.localScale = Vector3.one;
+       // transform.localPosition = Vector3.zero;
+       // transform.localRotation = Quaternion.Euler(Vector3.zero);
+       // transform.localScale = Vector3.one;
 
 
-        rb.isKinematic = true;
-        coll.isTrigger = true;
 
-
-        gunScript.enabled = true;
     }
 
     private void Drop()
@@ -71,25 +51,9 @@ public class Interakcje : MonoBehaviour
         transform.SetParent(null);
 
 
-        rb.isKinematic = false;
-        coll.isTrigger = false;
 
 
-        rb.velocity = player.GetComponent<Rigidbody>().velocity;
 
 
-        rb.AddForce(fpsCam.forward * dropForwardForce, ForceMode.Impulse);
-        rb.AddForce(fpsCam.up * dropUpwardForce, ForceMode.Impulse);
-
-        float random = Random.Range(-1f, 1f);
-        rb.AddTorque(new Vector3(random, random, random) * 10);
-
-
-        gunScript.enabled = false;
     }
 }
-
-public class ProjectileGun
-{
-    internal bool enabled;
-}   
